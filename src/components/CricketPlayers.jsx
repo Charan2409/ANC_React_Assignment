@@ -8,7 +8,7 @@ const CricketPlayers = ({ data }) => {
   const [newlyEditedPlayers, setNewlyEditedPlayers] = useState([]);
 
   if (!data) {
-    return <p>FootBall players list is still loading...</p>;
+    return <p>Cricket players list is still loading...</p>;
   }
 
   const handleInputChange = (e) => {
