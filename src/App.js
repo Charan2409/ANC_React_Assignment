@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect,useState } from 'react';
+import axios from 'axios';
+import CricketPlayers from './components/CricketPlayers';
+import FootBallPlayers from './components/FootBallPlayers';
+import { API_URL } from './utils/Constants';
+
+
 
 function App() {
+  const [footballList,setFootballList] = useState(null)
+  const [cricketList, setCricketList] = useState(null);
+  useEffect(()=>{
+    fetchPlayers()
+  },[]);
+  const fetchPlayers = async() =>{
+    const Response = await axios.get(API_URL)
+    setFootballList(Response);
+    setCricketList(Response.data[1]);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className='flex flex-col flex-wrap'>
+          <h1 className='font font-extrabold text-2xl p-2 text-center'>Athelete Lists</h1>
+          <FootBallPlayers data={footballList && footballList.data[0]}/>
+          <CricketPlayers data={cricketList}/> 
+      </div>
+      
     </div>
   );
 }
